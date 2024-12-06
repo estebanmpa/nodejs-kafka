@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-kafka",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "yarn build && node --trace-warnings dist/server.js"
+  },
+  "author": "Esteban Mariano Piga Alessi",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1",
+    "kafkajs": "^2.2.4"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  }
+}

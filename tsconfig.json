@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2023",
+    "module": "commonjs",
+    "moduleResolution": "node10",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
