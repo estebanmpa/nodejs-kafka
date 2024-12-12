@@ -2,13 +2,13 @@ import express, { Application } from 'express';
 import { KafkaBroker } from './common/infrastructure/kafka/kafka-broker';
 import { ControllerFactory } from './common/infrastructure/controllers/controller.factory';
 import { ProducerController } from './modules/producer/infrastructure/controllers/producer.controller';
+import { ConsumerListener } from './modules/consumer/infrastructure/listeners/consumer.listener';
 
 export default class App {
     public app: Application;
     private port: number = 3000;
-    private controllers = [
-        ProducerController
-    ];
+    private controllers = [ProducerController];
+    private listeners = [new ConsumerListener(process.env.TOPIC || "dummy")]
 
     constructor() {
         this.app = express();
@@ -23,6 +23,7 @@ export default class App {
 
         this.initializeControllers(this.controllers);
         this.initializeBroker();
+        this.initializeListeners(this.listeners);
         this.app.listen(this.port, () => {
             console.log(`Server is running on http://localhost:${this.port}`);
         })
@@ -38,5 +39,11 @@ export default class App {
 
     private initializeBroker = () => {
         KafkaBroker.getInstance().init();
+    }
+
+    private initializeListeners = (listeners: any[]) => {
+        listeners.forEach((listener) => {
+            listener.subscribe();
+        });
     }
 }

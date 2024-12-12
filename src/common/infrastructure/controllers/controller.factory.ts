@@ -8,6 +8,8 @@ export class ControllerFactory {
         switch (controller.name) {
             case "ProducerController":
                 return new ProducerController(new ProduceUseCase());
+            case "ProducerController":
+                return new ProducerController(new ProduceUseCase());
             default:
                 throw new Error("Unrecongnized Type!");
         }

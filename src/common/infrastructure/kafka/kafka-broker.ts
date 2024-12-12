@@ -1,8 +1,10 @@
-import { Kafka } from "kafkajs";
+import { Consumer, Kafka, Partitioners, Producer } from "kafkajs";
 
 export class KafkaBroker {
     private static instance: KafkaBroker;
-    public static kafka: Kafka;
+    private static kafka: Kafka;
+    public static producer: Producer;
+    public static consumer: Consumer;
 
     constructor() { }
 
@@ -18,6 +20,8 @@ export class KafkaBroker {
         KafkaBroker.kafka = new Kafka({
             clientId: 'nodejs-kafka',
             brokers: ['localhost:9092']
-        })
+        });
+        KafkaBroker.producer = KafkaBroker.kafka.producer({ createPartitioner: Partitioners.DefaultPartitioner });
+        KafkaBroker.consumer = KafkaBroker.kafka.consumer({ groupId: "nodejs-kafka" });
     }
 }

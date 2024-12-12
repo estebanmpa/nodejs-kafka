@@ -1,13 +1,11 @@
-import { Partitioners } from "kafkajs";
 import { KafkaBroker } from "../../../../common/infrastructure/kafka/kafka-broker";
-import { Message } from "../../domain/message.dto";
-import { Producer } from "../../../../common/infrastructure/kafka/producer.dto";
+import { Message } from "../../../../common/domain/message.dto";
+import { Producer } from "../../infrastructure/kafka/schemas/producer";
 
 export class ProduceUseCase {
     public handle = async (message: Message) => {
-        const producer = KafkaBroker.kafka.producer({ createPartitioner: Partitioners.DefaultPartitioner });
-        await producer.connect();
+        await KafkaBroker.producer.connect();
         const producerRecord = new Producer(message.topic, message.message);
-        await producer.send(producerRecord);
+        await KafkaBroker.producer.send(producerRecord);
     }
 }
